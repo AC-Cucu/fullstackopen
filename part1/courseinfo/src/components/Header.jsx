@@ -1,8 +1,8 @@
-const Header = () => {
+const Header = (props) => {
     console.log('Header component rendered')
     return (
         <>
-            <p>Header</p>
+            <h1>{props.course}</h1>
         </>
     )
 }
