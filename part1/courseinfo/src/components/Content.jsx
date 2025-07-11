@@ -1,4 +1,5 @@
 const Content = (props) => {
+    console.log('Content component rendered')
     return (
         <>
             <p>
