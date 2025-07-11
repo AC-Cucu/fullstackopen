@@ -1,8 +1,8 @@
-const Display = (props) => {
-    console.log('rendering Display...', props)
+const Display = ({counter}) => {
+    console.log('rendering Display...', counter)
     return (
         <>
-            <div>{props.counter}</div>
+            <div>{counter}</div>
         </>
     )
 }

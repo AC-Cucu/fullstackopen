@@ -1,9 +1,9 @@
-const Button = (props) => {
-    console.log('rendering Button...', props)
+const Button = ({onSmash, text}) => {
+    console.log('rendering Button...', text)
     return (
         <>
-            <button onClick={props.onClick}>
-                {props.text}
+            <button onClick={onSmash}>
+                {text}
             </button>          
         </>
     )
