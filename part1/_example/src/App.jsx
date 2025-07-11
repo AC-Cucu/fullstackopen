@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import Display from './components/Display'
+
 const App = () => {
 
   const [ counter, setCounter ] = useState(0)
@@ -10,7 +12,7 @@ const App = () => {
 
   return (
     <>
-      <div>{counter}</div>
+      <Display counter={counter} />
       <button onClick={increaseByOne}>
         plus
       </button>    
