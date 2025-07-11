@@ -3,6 +3,7 @@ import Part from './Part';
 
 const Content = (props) => {
     console.log('Content component rendered')
+    console.log(props)
     return (
         <>
             <Part part={props.part1} exercises={props.exercises1} />
