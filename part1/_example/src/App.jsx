@@ -28,6 +28,26 @@ const App = () => {
     // https://stackoverflow.com/a/40309023
   }
 
+  // Examples of illegal use of useState
+  // These examples are not allowed in React and will throw an error if you try to run
+  /*
+  if ( age > 10 ) {
+    // this does not work
+    const [foobar, setFoobar] = useState(null)
+  }
+
+  for ( let i = 0; i < age; i++ ) {
+    // this does not work either
+    const [rightWay, setRightWay] = useState(false)
+  }
+
+  const notGood = () => {
+    // this is also illegal
+    const [x, setX] = useState(-1000)
+  }
+  // This is because useState can only be called at the top level of a component or a custom hook.
+  */
+
   const handleRightClick = () => {
     const updatedRight = right + 1
     setRight(updatedRight)
