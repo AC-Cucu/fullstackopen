@@ -16,15 +16,15 @@ const App = () => {
     <>
       <Display counter={counter} />
       <Button 
-        onClick={increaseByOne} 
+        onSmash={increaseByOne} 
         text='plus' 
       />
       <Button 
-        onClick={decreaseByOne} 
+        onSmash={decreaseByOne} 
         text='minus' 
       />      
       <Button 
-        onClick={setToZero} 
+        onSmash={setToZero} 
         text='zero' 
       />
     </>

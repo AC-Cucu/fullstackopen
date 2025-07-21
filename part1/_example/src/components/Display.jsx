@@ -1,9 +1,7 @@
 const Display = ({counter}) => {
     console.log('rendering Display...', counter)
-    return (
-        <>
-            <div>{counter}</div>
-        </>
+    return (        
+        <div>{counter}</div>
     )
 }
 

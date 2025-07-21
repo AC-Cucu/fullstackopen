@@ -1,11 +1,9 @@
 const Button = ({onSmash, text}) => {
     console.log('rendering Button...', text)
     return (
-        <>
-            <button onClick={onSmash}>
-                {text}
-            </button>          
-        </>
+        <button onClick={onSmash}>
+            {text}
+        </button>
     )
 }
 
