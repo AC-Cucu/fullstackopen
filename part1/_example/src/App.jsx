@@ -1,39 +1,42 @@
 import { useState } from 'react'
 
 const App = () => {
-  const [clicks, setClicks] = useState({
-    left: 0,
-    right: 0
-  })
+  // Storing the whole state in a single object does not bring any benefit for this example, but therare are cases where it can be useful.
+  // const [clicks, setClicks] = useState({
+  //   left: 0,
+  //   right: 0
+  // })
+
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  const [allClicks, setAll] = useState([])  
+ 
 
   const handleLeftClick = () => {
-    const newClicks = {
-      ...clicks,
-      left: clicks.left + 1
-    }
-    console.log('left button clicked', newClicks)
-    setClicks(newClicks)
+    setLeft(left + 1)
+    setAll(allClicks.concat('L'))
+    // The `concat` method creates a new array with the new element added, which is the recommended way to update state in React.    
+    // We could also use `setAll(allClicks.push('L'))` but this is a bad practice
+    // because it mutates the state directly, which is not recommended in React.
+    // https://stackoverflow.com/a/40309023
   }
 
   const handleRightClick = () => {
-    const newClicks = {
-      ...clicks,
-      right: clicks.right + 1
-    }
-    console.log('right button clicked', newClicks)
-    setClicks(newClicks)
+    setRight(right + 1)
+    setAll(allClicks.concat('R'))
   }
 
   return (
     <div>
-      {clicks.left}
+      {left}
       <button onClick={handleLeftClick}>
         left
       </button>
       <button onClick={handleRightClick}>
         right
       </button>
-      {clicks.right}
+      {right}
+      <p>{allClicks.join(' ')}</p>
     </div>
   )
 }
