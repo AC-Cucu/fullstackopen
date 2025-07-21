@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
 import History from './components/History'
+import Button from './components/Button'
+import Total from './components/Total'
 
 const App = () => {
   // Storing the whole state in a single object does not bring any benefit for this example, but there are cases where it can be useful.
@@ -11,7 +13,7 @@ const App = () => {
 
   const [left, setLeft] = useState(0)
   const [right, setRight] = useState(0)
-  const [allClicks, setAll] = useState([])  
+  const [allClicks, setAll] = useState([])
   const [total, setTotal] = useState(0)
  
 
@@ -35,17 +37,12 @@ const App = () => {
 
   return (
     <div>
-      
-      {left}
-      <button onClick={handleLeftClick}>
-        left
-      </button>
-      <button onClick={handleRightClick}>
-        right
-      </button>
-      {right}
+      <Button onSmash={handleLeftClick} text={left} />
+      <Button onSmash={handleRightClick} text={right} />
       <History allClicks={allClicks} />
-      <p>total {total}</p>
+      <Total total={total} />
+      {/* The Total component will not render anything if the total is 0 */}
+      {/* This is an example of conditional rendering based on the state */}
     </div>
   )
 }
