@@ -1,8 +1,5 @@
 import { useState } from 'react'
 
-import Display from './components/Display'
-import Button from './components/Button'
-
 const App = () => {
   const [clicks, setClicks] = useState({
     left: 0,
@@ -11,8 +8,8 @@ const App = () => {
 
   const handleLeftClick = () => {
     const newClicks = {
-      left: clicks.left + 1,
-      right: clicks.right
+      ...clicks,
+      left: clicks.left + 1
     }
     console.log('left button clicked', newClicks)
     setClicks(newClicks)
@@ -20,7 +17,7 @@ const App = () => {
 
   const handleRightClick = () => {
     const newClicks = {
-      left: clicks.left,
+      ...clicks,
       right: clicks.right + 1
     }
     console.log('right button clicked', newClicks)
