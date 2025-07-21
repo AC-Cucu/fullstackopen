@@ -10,11 +10,13 @@ const App = () => {
   const [left, setLeft] = useState(0)
   const [right, setRight] = useState(0)
   const [allClicks, setAll] = useState([])  
+  const [total, setTotal] = useState(0)
  
 
   const handleLeftClick = () => {
     setLeft(left + 1)
     setAll(allClicks.concat('L'))
+    setTotal(left + right)
     // The `concat` method creates a new array with the new element added, which is the recommended way to update state in React.    
     // We could also use `setAll(allClicks.push('L'))` but this is a bad practice
     // because it mutates the state directly, which is not recommended in React.
@@ -24,6 +26,7 @@ const App = () => {
   const handleRightClick = () => {
     setRight(right + 1)
     setAll(allClicks.concat('R'))
+    setTotal(left + right)
   }
 
   return (
@@ -37,6 +40,7 @@ const App = () => {
       </button>
       {right}
       <p>{allClicks.join(' ')}</p>
+      <p>total {total}</p>
     </div>
   )
 }
