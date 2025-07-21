@@ -3,6 +3,7 @@ import { useState } from 'react'
 import History from './components/History'
 import Button from './components/Button'
 import Total from './components/Total'
+import Function from './components/Function'
 
 const App = () => {
   // Storing the whole state in a single object does not bring any benefit for this example, but there are cases where it can be useful.
@@ -57,6 +58,7 @@ const App = () => {
 
   return (
     <div>
+      <Function/>
       <Button onSmash={handleLeftClick} text={left} />
       <Button onSmash={handleRightClick} text={right} />
       <History allClicks={allClicks} />
