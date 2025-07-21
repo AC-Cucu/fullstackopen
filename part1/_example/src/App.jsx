@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
+import History from './components/History'
+
 const App = () => {
-  // Storing the whole state in a single object does not bring any benefit for this example, but therare are cases where it can be useful.
+  // Storing the whole state in a single object does not bring any benefit for this example, but there are cases where it can be useful.
   // const [clicks, setClicks] = useState({
   //   left: 0,
   //   right: 0
@@ -33,6 +35,7 @@ const App = () => {
 
   return (
     <div>
+      
       {left}
       <button onClick={handleLeftClick}>
         left
@@ -41,7 +44,7 @@ const App = () => {
         right
       </button>
       {right}
-      <p>{allClicks.join(' ')}</p>
+      <History allClicks={allClicks} />
       <p>total {total}</p>
     </div>
   )
