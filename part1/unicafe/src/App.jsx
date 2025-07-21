@@ -2,28 +2,58 @@ import { useState } from 'react'
 
 import Header from './components/Header'
 import Button from './components/Button'
-import Statistic from './components/Statistic'
+import Statistics from './components/Statistics'
 
 const App = () => {
   console.log('App component rendered')
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [all, setAll] = useState(0)
+  const [average, setAverage] = useState(0)
+  const [positive, setPositive] = useState(0)
 
   const handleGoodClick = () => {
     const updatedGood = good + 1
     console.log('Good button clicked, updating good count:', updatedGood)
     setGood(updatedGood)
-  }
+
+    const updatedAll = neutral + bad + updatedGood
+    setAll(updatedAll)
+
+    const updatedAverage = (updatedGood - bad) / updatedAll
+    setAverage(updatedAverage)
+
+    const updatedPositive = (updatedGood / updatedAll) * 100
+    setPositive(updatedPositive)
+  } 
   const handleNeutralClick = () => {
     const updatedNeutral = neutral + 1
     console.log('Neutral button clicked, updating neutral count:', updatedNeutral)
     setNeutral(updatedNeutral)
+
+    const updatedAll = updatedNeutral + bad + good
+    setAll(updatedAll)
+
+    const updatedAverage = (good - bad) / updatedAll
+    setAverage(updatedAverage)
+
+    const updatedPositive = (good / updatedAll) * 100
+    setPositive(updatedPositive)
   }
   const handleBadClick = () => {
     const updatedBad = bad + 1
     console.log('Bad button clicked, updating bad count:', updatedBad)
     setBad(updatedBad)
+
+    const updatedAll = neutral + updatedBad + good
+    setAll(updatedAll)
+
+    const updatedAverage = (good - updatedBad) / updatedAll
+    setAverage(updatedAverage)
+
+    const updatedPositive = (good / updatedAll) * 100
+    setPositive(updatedPositive)
   }
 
   return (
@@ -33,9 +63,12 @@ const App = () => {
       <Button onClick={handleNeutralClick} text="neutral" />
       <Button onClick={handleBadClick} text="bad" />
       <Header headingText="statistics" />
-      <Statistic text="good" counter={good} />
-      <Statistic text="neutral" counter={neutral} />
-      <Statistic text="bad" counter={bad} />
+      <Statistics text="good" counter={good} />
+      <Statistics text="neutral" counter={neutral} />
+      <Statistics text="bad" counter={bad} />
+      <Statistics text="all" counter={all} />
+      <Statistics text="average" counter={average} />
+      <Statistics text="positive" counter={positive} />
     </>
   )
 }
