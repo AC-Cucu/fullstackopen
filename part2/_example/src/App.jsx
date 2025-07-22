@@ -1,9 +1,19 @@
+const App = (props) => {
+  const { notes } = props
 
-function App() {
   return (
-    <>
-      <p>example</p>
-    </>
+    <div>
+      <h1>Notes</h1>
+      <ul>
+        {
+          notes.map(note => 
+            <li key={note.id}>
+              {note.content}
+            </li>
+          )
+        }
+      </ul>
+    </div>
   )
 }
 
