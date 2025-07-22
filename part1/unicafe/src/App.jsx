@@ -13,6 +13,34 @@ const App = () => {
   const [average, setAverage] = useState(0)
   const [positive, setPositive] = useState(0)
 
+  const statistics = [
+    {
+      text: 'good',
+      counter: good
+    },
+    {
+      text: 'neutral',
+      counter: neutral
+    },
+    {
+      text: 'bad',
+      counter: bad
+    },
+    {
+      text: 'all',
+      counter: all
+    },
+    {
+      text: 'average',
+      counter: average
+    },
+    {
+      text: 'positive',
+      counter: positive
+    }
+  ]
+  console.log('Statistics data:', statistics)
+
   const handleGoodClick = () => {
     const updatedGood = good + 1
     console.log('Good button clicked, updating good count:', updatedGood)
@@ -26,7 +54,8 @@ const App = () => {
 
     const updatedPositive = (updatedGood / updatedAll) * 100
     setPositive(updatedPositive)
-  } 
+  }
+
   const handleNeutralClick = () => {
     const updatedNeutral = neutral + 1
     console.log('Neutral button clicked, updating neutral count:', updatedNeutral)
@@ -41,6 +70,7 @@ const App = () => {
     const updatedPositive = (good / updatedAll) * 100
     setPositive(updatedPositive)
   }
+
   const handleBadClick = () => {
     const updatedBad = bad + 1
     console.log('Bad button clicked, updating bad count:', updatedBad)
@@ -63,12 +93,7 @@ const App = () => {
       <Button onClick={handleNeutralClick} text="neutral" />
       <Button onClick={handleBadClick} text="bad" />
       <Header headingText="statistics" />
-      <Statistics text="good" counter={good} />
-      <Statistics text="neutral" counter={neutral} />
-      <Statistics text="bad" counter={bad} />
-      <Statistics text="all" counter={all} />
-      <Statistics text="average" counter={average} />
-      <Statistics text="positive" counter={positive} />
+      <Statistics statistics={statistics} />
     </>
   )
 }
