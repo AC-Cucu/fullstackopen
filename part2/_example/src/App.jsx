@@ -3,13 +3,28 @@ import { useState } from "react"
 import Note from "./components/Note"
 
 const App = (props) => {
-  console.log('Notes:', props.notes)
-
   const [notes, setNotes] = useState(props.notes)
+  const [newNote, setNewNote] = useState('a new note...')
 
   const addNote = (event) => {
     event.preventDefault()
-    console.log('button clicked', event.target)
+    const noteObject = {
+      id: notes.length + 1,
+      content: newNote,
+      important: Math.random() < 0.5
+    }
+
+    const newNotes = [...notes, noteObject]
+    console.log('newNotes:', newNotes)
+
+    setNotes(newNotes)
+    setNewNote('')
+  }
+
+  const handleNoteChange = (event) => {    
+    const newNoteFromInput = event.target.value
+    console.log('note changed', newNoteFromInput)
+    setNewNote(newNoteFromInput)
   }
 
   return (
@@ -23,7 +38,7 @@ const App = (props) => {
         }
       </ul>
       <form onSubmit={addNote}>
-        <input name="note" />
+        <input name="note" value={newNote} onChange={handleNoteChange} />
         <button type="submit">Add Note</button>
       </form>
     </div>
