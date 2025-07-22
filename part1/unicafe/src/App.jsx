@@ -89,9 +89,9 @@ const App = () => {
   return (
     <>
       <Header headingText="give feedback" />
-      <Button onClick={handleGoodClick} text="good" />
-      <Button onClick={handleNeutralClick} text="neutral" />
-      <Button onClick={handleBadClick} text="bad" />
+      <Button onClick={handleGoodClick} text={statistics[0].text} />
+      <Button onClick={handleNeutralClick} text={statistics[1].text} />
+      <Button onClick={handleBadClick} text={statistics[2].text} />
       <Header headingText="statistics" />
       <Statistics statistics={statistics} />
     </>
