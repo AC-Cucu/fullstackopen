@@ -9,7 +9,7 @@ const Content = (props) => {
             {
                 props.parts.map(part => (
                     <Part
-                        key={part.name}
+                        key={part.id}
                         part={part.name}
                         exercises={part.exercises}
                     />
