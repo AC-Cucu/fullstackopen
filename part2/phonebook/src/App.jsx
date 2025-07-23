@@ -15,7 +15,7 @@ const App = () => {
   const fetchPersons = () => {
     console.log('effect')
     personService
-      .getAll()
+      .getAllPersons()
       .then(initialPersons => {
         console.log('promise fulfilled')
         const fetchedPersons = initialPersons
@@ -24,8 +24,6 @@ const App = () => {
   }
 
   useEffect(fetchPersons, [])
-  console.log('render', persons.length, 'persons')
-
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -42,7 +40,7 @@ const App = () => {
     }
 
     personService
-      .create(personObject)
+      .createPerson(personObject)
       .then(returnedPerson => {
         console.log('person added:', returnedPerson )
         const addedPerson = returnedPerson
@@ -78,6 +76,28 @@ const App = () => {
     ? persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
     : persons
 
+  const handlePersonDelete = (id) => {
+    const personFound = filteredPersons.find(person => person.id === id)
+    console.log("person found:", personFound)
+
+    if (!personFound) return
+
+    const confirmDelete = window.confirm(`Do you really want to delete ${personFound.name}`)
+
+    if (!confirmDelete) return
+
+    personService
+      .deletePerson(id)
+      .then(deletedPerson => {
+          console.log(`${deletedPerson.name} was deleted sucessfully`)
+          const updatedPersons = filteredPersons.filter(n => n.id !== id)
+          setPersons(updatedPersons)
+      })
+      .catch(error => {
+        console.error(`Error deleting person: ${error}`)
+      })
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -96,7 +116,7 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons filteredPersons={filteredPersons} />
+      <Persons filteredPersons={filteredPersons} deletePerson={handlePersonDelete} />
     </div>
   )
 }
