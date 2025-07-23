@@ -61,6 +61,22 @@ const App = () => {
             setMessage(null)
           }, 5000)
         })
+        .catch(error => {
+          console.error("Error updating person:", error)
+
+          const newMessage = {
+            text: `Information of ${personObject.name} has already been removed from server`,
+            type: 'error'
+          }
+
+          setMessage(newMessage)
+
+          setPersons(persons.filter(person => person.id !== personFound.id))
+
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        })
       
       return
     }
@@ -84,6 +100,22 @@ const App = () => {
           setMessage(null)
         }, 5000)
         console.log('Updated persons:', newPersons)
+      })
+      .catch(error => {
+        console.error("Error updating person:", error)
+
+        const newMessage = {
+          text: `Information of ${personObject.name} has already been removed from server`,
+          type: 'error'
+        }
+
+        setMessage(newMessage)
+
+        setPersons(persons.filter(person => person.name !== personObject.name))
+
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
   }
 
@@ -125,8 +157,29 @@ const App = () => {
           console.log(`${deletedPerson.name} was deleted sucessfully`)
           const updatedPersons = filteredPersons.filter(n => n.id !== id)
           setPersons(updatedPersons)
+
+          const newMessage = {
+            text: `${deletedPerson.name} has been deleted`,
+            type: 'success'
+          }
+          setMessage(newMessage)
+
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
       })
       .catch(error => {
+          const newMessage = {
+            text: `This person has already been removed from the server.`,
+            type: 'error'
+          }
+          setMessage(newMessage)
+          
+          setPersons(persons.filter(person => person.id !== personFound.id))
+
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         console.error(`Error deleting person: ${error}`)
       })
   }
