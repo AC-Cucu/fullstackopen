@@ -25,16 +25,23 @@ const App = () => {
   const addNote = (event) => {
     event.preventDefault()
     const noteObject = {
-      id: notes.length + 1,
+      // id: notes.length + 1,
       content: newNote,
       important: Math.random() < 0.5
     }
 
-    const newNotes = [...notes, noteObject]
-    console.log('newNotes:', newNotes)
+    axios
+      .post('http://localhost:3001/notes', noteObject)
+      .then(response => {
+        console.log('note added:', response.data)
+        const addedNote = response.data
 
-    setNotes(newNotes)
-    setNewNote('')
+        const newNotes = [...notes, addedNote]
+        console.log('newNotes:', newNotes)
+
+        setNotes(newNotes)
+        setNewNote('')
+      })
   }
 
   const handleNoteChange = (event) => {    
