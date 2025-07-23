@@ -3,17 +3,20 @@ import { useState } from 'react'
 const App = () => {
   const [persons, setPersons] = useState([
     {
-       id: 1,
-       name: 'Arto Hellas' 
+      id: 1,
+      name: 'Arto Hellas',
+      phone: '040-1234567'
     }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newPhone, setNewPhone] = useState('')
 
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
       id: persons.length + 1,
-      name: newName
+      name: newName,
+      phone: newPhone
     }
 
     const personExists = persons.some(person => person.name === newName)
@@ -25,6 +28,7 @@ const App = () => {
     const newPersons = [...persons, personObject]
     setPersons(newPersons)
     setNewName('')
+    setNewPhone('')
     // Debugging logs
     console.log('Added person:', personObject)
     console.log('Updated persons:', newPersons)
@@ -36,6 +40,12 @@ const App = () => {
     setNewName(newNameFromInput)
   }
 
+  const handlePhoneChange = (event) => {
+    const newPhoneFromInput = event.target.value
+    console.log('phone changed', newPhoneFromInput)
+    setNewPhone(newPhoneFromInput)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -44,12 +54,15 @@ const App = () => {
           name: <input value={newName} onChange={handleNameChange} />
         </div>
         <div>
+          phone: <input value={newPhone} onChange={handlePhoneChange} />
+        </div>
+        <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
       {persons.map(person => 
-        <li key={person.id}>{person.name}</li>
+        <li key={person.id}>{person.name} {person.phone}</li>
       )}
     </div>
   )
