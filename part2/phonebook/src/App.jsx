@@ -32,11 +32,22 @@ const App = () => {
       name: newName,
       number: newNumber
     }
+   
+    const personFound = persons.find(person => person.name === newName)
 
-    const personExists = persons.some(person => person.name === newName)
-    if (personExists) {
-      alert(`${newName} is already added to phonebook`)
-      return
+    if (personFound) {      
+      const confirmUpdate = window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)
+      if (!confirmUpdate) return
+
+      const personId = personFound.id;
+      personService
+        .updatePerson(personId, personObject)
+        .then(returnedPerson => {
+          const updatedPerson = returnedPerson 
+
+          const newPersons = persons.map(person => person.id !== personId ? person : updatedPerson)
+          setPersons(newPersons)          
+        })
     }
 
     personService
