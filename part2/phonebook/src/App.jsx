@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -13,11 +14,11 @@ const App = () => {
 
   const fetchPersons = () => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+    personService
+      .getAll()
+      .then(initialPersons => {
         console.log('promise fulfilled')
-        const fetchedPersons = response.data
+        const fetchedPersons = initialPersons
         setPersons(fetchedPersons)
       })
   }
@@ -29,7 +30,7 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
-      id: persons.length + 1,
+      // id: persons.length + 1,
       name: newName,
       number: newNumber
     }
@@ -40,13 +41,19 @@ const App = () => {
       return
     }
 
-    const newPersons = [...persons, personObject]
-    setPersons(newPersons)
-    setNewName('')
-    setNewNumber('')
-    // Debugging logs
-    console.log('Added person:', personObject)
-    console.log('Updated persons:', newPersons)
+    personService
+      .create(personObject)
+      .then(returnedPerson => {
+        console.log('person added:', returnedPerson )
+        const addedPerson = returnedPerson
+
+        const newPersons = [...persons, addedPerson]
+        setPersons(newPersons)
+
+        setNewName('')
+        setNewNumber('')
+        console.log('Updated persons:', newPersons)
+      })
   }
 
   const handleNameChange = (event) => {
