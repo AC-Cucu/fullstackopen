@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 
 import personService from './services/persons'
 
@@ -11,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [message, setMessage] = useState(null)
 
   const fetchPersons = () => {
     console.log('effect')
@@ -28,14 +30,13 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
-      // id: persons.length + 1,
       name: newName,
       number: newNumber
     }
-   
+
     const personFound = persons.find(person => person.name === newName)
 
-    if (personFound) {      
+    if (personFound) {
       const confirmUpdate = window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)
       if (!confirmUpdate) return
 
@@ -45,8 +46,20 @@ const App = () => {
         .then(returnedPerson => {
           const updatedPerson = returnedPerson 
 
+          const newMessage = {
+            text: `Updated the number of ${updatedPerson.name}`,
+            type: 'success'
+          }
+          setMessage(newMessage)
+
           const newPersons = persons.map(person => person.id !== personId ? person : updatedPerson)
-          setPersons(newPersons)          
+          setPersons(newPersons)
+
+          setNewName('')
+          setNewNumber('')
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         })
       
       return
@@ -55,14 +68,21 @@ const App = () => {
     personService
       .createPerson(personObject)
       .then(returnedPerson => {
-        console.log('person added:', returnedPerson )
         const addedPerson = returnedPerson
+        const newMessage = {
+          text: `${addedPerson.name} was added to the phonebook`,
+          type: 'success'
+        }
+        setMessage(newMessage)
 
         const newPersons = [...persons, addedPerson]
         setPersons(newPersons)
 
         setNewName('')
         setNewNumber('')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
         console.log('Updated persons:', newPersons)
       })
   }
@@ -115,16 +135,18 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
+      <Notification message={message} />
+
       <Filter value={newFilter} onChange={handleFilterChange} />
 
       <h3>Add a new person</h3>
 
-      <PersonForm 
-        onSubmit={addPerson} 
-        newName={newName} 
+      <PersonForm
+        onSubmit={addPerson}
+        newName={newName}
         newNumber={newNumber}
-        onNameChange={handleNameChange} 
-        onNumberChange={handleNumberChange} 
+        onNameChange={handleNameChange}
+        onNumberChange={handleNumberChange}
       />
 
       <h3>Numbers</h3>
