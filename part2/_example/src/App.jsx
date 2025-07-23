@@ -12,9 +12,9 @@ const App = () => {
     // Fetch notes from the server
     noteService
       .getAll()
-      .then(response => {
+      .then(initialNotes => {
         console.log('promise fulfilled')
-        const notes = response.data
+        const notes = initialNotes
         setNotes(notes)
       })
   }
@@ -32,9 +32,9 @@ const App = () => {
 
     noteService
       .create(noteObject)
-      .then(response => {
-        console.log('note added:', response.data)
-        const addedNote = response.data
+      .then(returnedNote  => {
+        console.log('note added:', returnedNote )
+        const addedNote = returnedNote
 
         const newNotes = [...notes, addedNote]
         console.log('newNotes:', newNotes)
@@ -44,7 +44,7 @@ const App = () => {
       })
   }
 
-  const handleNoteChange = (event) => {    
+  const handleNoteChange = (event) => {
     const newNoteFromInput = event.target.value
     console.log('note changed', newNoteFromInput)
     setNewNote(newNoteFromInput)
@@ -69,8 +69,8 @@ const App = () => {
 
     noteService
       .update(id, changedNote)
-      .then(response => {
-        const updatedNote = response.data
+      .then(returnedNote  => {
+        const updatedNote = returnedNote 
 
         const newNotes = notes.map(note => note.id !== id ? note : updatedNote)
         setNotes(newNotes)
