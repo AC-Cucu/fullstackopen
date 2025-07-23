@@ -48,6 +48,8 @@ const App = () => {
           const newPersons = persons.map(person => person.id !== personId ? person : updatedPerson)
           setPersons(newPersons)          
         })
+      
+      return
     }
 
     personService
