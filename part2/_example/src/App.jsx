@@ -61,6 +61,10 @@ const App = () => {
     setShowAll(!showAll)
   }
 
+  const toggleImportantceOf = (id) => {
+    console.log(`importance of ${id} needs to be toggled`)
+  }
+
   return (
     <div>
       <h1>Notes</h1>
@@ -70,7 +74,11 @@ const App = () => {
       <ul>
         {
           notesToShow.map(note => 
-            <Note key={note.id} note={note} />
+            <Note 
+              key={note.id} 
+              note={note} 
+              toggleImportance={() => toggleImportantceOf(note.id)} 
+            />
           )
         }
       </ul>
