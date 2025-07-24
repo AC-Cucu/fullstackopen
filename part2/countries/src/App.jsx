@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react"
 
 import countriesService from './services/countries'
+import CountryDetails from "./components/CountryDetails"
 
 function App() {
   const [filterCountry, setFilterCountry] = useState('')
   const [country, setCountry] = useState(null)
   const [countries, setCountries] = useState([])
   const [manyRequests, setManyRequests] = useState(false)
+  const [showDetail, setShowDetail] = useState(null)
 
   const handleCountryChange = (event) => {
     const newCountryFromInput = event.target.value
@@ -53,6 +55,14 @@ function App() {
 
   useEffect(fetchCountries, [filterCountry])
 
+  const toggleShowDetails = (id) => {
+    if (showDetail) {
+      setShowDetail(null) 
+      return
+    }
+    setShowDetail(id)
+  }
+
 
   return (
     <>
@@ -62,29 +72,20 @@ function App() {
 
       {
         filterCountry && country && 
-        <>
-          <h1> {country.name.common}</h1>
-
-          <p>Capital {country.capital[0]}</p>
-          <p>Area {country.area}</p>
-
-          <h2>Languages</h2>
-          <ul>
-            {
-              Object.entries(country.languages).map(([langCode, langName]) => (
-                <li key={langCode}>{langName}</li>
-              ))
-            }
-          </ul>
-
-          <img src={country.flags.svg} alt={country.flags.alt} width={200} height={200} />
-        </>
+        <CountryDetails country={country}/>
       }
       
       {
         countries.map(country => {
           const {name, cca3} = country
-          return <li key={cca3}>{name.common}</li>
+          return(
+              <li key={cca3}>
+                {name.common} <button onClick={() => toggleShowDetails(cca3)}>Show</button>
+                {country && cca3 === showDetail && 
+                  <CountryDetails country={country} />
+                }
+              </li>
+          )
         }) 
       }
     </>
