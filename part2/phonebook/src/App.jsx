@@ -64,8 +64,10 @@ const App = () => {
         .catch(error => {
           console.error("Error updating person:", error)
 
+          const errorText = (error?.response?.data?.error) ? error?.response?.data?.error : `Information of ${personObject.name} has already been removed from server`;
+
           const newMessage = {
-            text: `Information of ${personObject.name} has already been removed from server`,
+            text: errorText,
             type: 'error'
           }
 
@@ -104,8 +106,10 @@ const App = () => {
       .catch(error => {
         console.error("Error updating person:", error)
 
+        const errorText = (error?.response?.data?.error) ? error?.response?.data?.error : `Information of ${personObject.name} has already been removed from server`;
+
         const newMessage = {
-          text: `Information of ${personObject.name} has already been removed from server`,
+          text: errorText,
           type: 'error'
         }
 
