@@ -15,7 +15,7 @@ Este curso sirve como una introducción al desarrollo de aplicaciones web modern
 | ✅ | **Parte 0**  | Fundamentos de las aplicaciones web | [Ir](https://fullstackopen.com/es/part0) |
 | ✅ | **Parte 1**  | Introducción a React               | [Ir](https://fullstackopen.com/es/part1) |
 | ✅ | **Parte 2**  | Comunicándose con el servidor      | [Ir](https://fullstackopen.com/es/part2) |
-| [ ] | **Parte 3**  | Programando un servidor con NodeJS y Express | [Ir](https://fullstackopen.com/es/part3) |
+| ✅ | **Parte 3**  | Programando un servidor con NodeJS y Express | [Ir](https://fullstackopen.com/es/part3) |
 | [ ] | **Parte 4**  | Probando servidores Express, administración de usuarios | [Ir](https://fullstackopen.com/es/part4) |
 | [ ] | **Parte 5**  | Probando aplicaciones React        | [Ir](https://fullstackopen.com/es/part5) |
 | [ ] | **Parte 6**  | Gestión avanzada del estado        | [Ir](https://fullstackopen.com/es/part6) |
